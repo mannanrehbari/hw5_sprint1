@@ -1,9 +1,14 @@
 #include <iostream>
+#include "controller.h"
 
-using namespace std;
-
-int main() 
+int main()
 {
-	cout << "New Project\n";
-	return 0;
+	// a comment added to main
+	// another comment in main
+	// comment in main
+	// this is the one
+
+	control();
+
+	return  0;
 }
