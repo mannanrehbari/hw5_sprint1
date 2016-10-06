@@ -68,7 +68,17 @@ void create()
 }
 void report()
 {
-	cout << "Reports will printed here!\n(not implemented for the first sprint)\n";
+	cout << "\n====================\nPrinting Vector of Objects\n";
+	
+
+	cout << "Partname: " << "\t" << "Part Type:\n";
+	for(unsigned int i= 0; i < myParts.size(); i++)
+	{
+		cout << (myParts[i])->part_name << "\t\t" << partType[(myParts[i])->part_type -1] << endl;
+	}
+
+	cout << "\n====================\n";
+
 
 }
 
