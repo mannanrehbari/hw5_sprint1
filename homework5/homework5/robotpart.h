@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-
+#include <ctype.h>
 using namespace std;
 
 
@@ -20,7 +20,7 @@ protected:
 	double part_cost;
 	string part_description;
 
-	virtual void getValues() = 0;
+	virtual void setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description) = 0;
 
 
 };
@@ -29,35 +29,37 @@ class Torso : public RobotPart
 {
 public:
 	int battery_comparts;
-	void getValues();
+	virtual void setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description);
+	void setCompart(int newComparts);
 };
 
 class Head : public RobotPart
 {
 public:
-	void getValues();
+	virtual void setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description);
 };
 
 
 class Arm : public RobotPart
 {
 public:
-	double power_arm;
-	void getValues();
+	double arm_power;
+	virtual void setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description);
 };
 
 class Battery : public RobotPart
 {
 public:
-	double energy_capacity;
-	void getValues();
+	double battery_capacity;
+	virtual void setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description);
 };
 
 class Locomotor : public RobotPart
 {
 public:
-	double max_op_speed;
-	void getValues();
+	double locomotor_maxspeed;
+	double locomotor_power;
+	virtual void setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description);
 };
 
 #endif // !ROBOTPART_H_

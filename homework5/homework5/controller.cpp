@@ -1,9 +1,12 @@
 #include "controller.h"
+#include "robotpart.h"
 
 
-
+vector<RobotPart*> myParts;
 void control()
 {
+	
+	
 	int selection;
 
 	cout << "Welcome to main menu\n\t====================\n\n";
@@ -89,27 +92,86 @@ void print_create()
 
 void create_part()
 {
+	//general description
 	string new_name;
 	int new_number;
 	int new_type;
 	double new_weight;
 	double new_cost;
 	string new_description;
+	int type;
 
+	//part-specific info holders
+	int battery_compartments;
+	double arm_power;
+	double battery_capacity;
+	double loco_maxspeed;
+	double loco_power;
 
-	cout << "\n\nCreate a part and add it to vector and go back \n";
-	int type, i;
-	cout << "\nChoose part type:\n";
-	for (i = 0; i < 5; i++)
-	{
-		cout << i + 1 << ": " << partType[i] << endl;
-	}
-	cout << "6: Go back to previous menu\n";
+	print_part_type();
+	
 	type = integer_validation();
+	
+
+
+
+	// 6 is key for previous menu after 5 part types
+	while (type != 6) 
+	{
+		cout << "\n\nAdd a(n) " << partType[type-1] << ":\n";
+
+		cin.ignore();
+		cout << "Part name: ";
+		getline(cin, new_name);
+
+		
+		cout << "Part number: ";
+		cin >> new_number;
+
+		cout << "Part weight: ";
+		cin >> new_weight;
+
+		cout << "Part cost: ";
+		cin >> new_cost;
+
+		cin.ignore();
+		cout << "Part description: ";
+		getline(cin, new_description);
+
+		if (type == 1) 
+		{
+			cout << "Battery compartments: ";
+			cin >> battery_compartments;
+			Torso* new_torso = new Torso ;
+			new_torso->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			new_torso->setCompart(battery_compartments);
+			if (new_torso->battery_comparts != -1) 
+			{
+				
+				myParts.push_back(new_torso);
+				cout << "New torso added! success! yay!\n";
+			}
+			else 
+			{
+				cout << "Bad input, object not added\n";
+			}
+
+			
+		}
+
+
+
+
+
+		
+		print_part_type();
+		type = integer_validation();
+	}
+
 
 	cin.ignore();
 	// getting the general parts 
-	cout << "";
+	
 
 
 
@@ -143,3 +205,16 @@ int integer_validation()
 	return num;
 
 }
+
+void print_part_type() 
+{
+	int i;
+	
+
+	cout << "\nChoose part type:\n";
+	for (i = 0; i < 5; i++)
+	{
+		cout << i + 1 << ": " << partType[i] << endl;
+	}
+	cout << "6: Previous menu\nSelection: ";
+};

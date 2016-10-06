@@ -21,6 +21,7 @@ void report();
 
 void print_main();
 void print_create();
+void print_part_type();
 
 //to ensure valid input
 int integer_validation();
