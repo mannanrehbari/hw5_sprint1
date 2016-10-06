@@ -23,7 +23,8 @@ void print_main();
 void print_create();
 void print_part_type();
 
-//to ensure valid input
+//to ensure integer input is valid 
+// not thoroughly implemented
 int integer_validation();
 
 #endif // !1

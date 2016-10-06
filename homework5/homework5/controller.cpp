@@ -9,7 +9,7 @@ void control()
 	
 	int selection;
 
-	cout << "Welcome to main menu\n\t====================\n\n";
+	cout << "Welcome to main menu\n====================\n\n";
 	print_main();
 
 	cout << "Selection: ";
@@ -68,7 +68,7 @@ void create()
 }
 void report()
 {
-	cout << "\nReport function called: Print all reports here, then go back\n";
+	cout << "Reports will printed here!\n(not implemented for the first sprint)\n";
 
 }
 
@@ -118,7 +118,7 @@ void create_part()
 	// 6 is key for previous menu after 5 part types
 	while (type != 6) 
 	{
-		cout << "\n\nAdd a(n) " << partType[type-1] << ":\n";
+		cout << "\n\n==================\nAdd a(n) " << partType[type-1] << ":\n";
 
 		cin.ignore();
 		cout << "Part name: ";
@@ -170,6 +170,10 @@ void create_part()
 		{
 			Arm * new_arm = new Arm;
 			new_arm->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			cout << "Arm power: ";
+			cin >> arm_power;
+			
+			new_arm->set_arm_power(arm_power);
 			myParts.push_back(new_arm);
 			cout << "New arm added! success! yay!\n==================\n";
 		}

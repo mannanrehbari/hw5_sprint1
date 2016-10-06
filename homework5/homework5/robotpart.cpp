@@ -10,8 +10,6 @@ void Torso::setGenValues(string new_name, int new_number, int new_type, double n
 	part_description = new_description;
 
 }
-
-
 void Torso::setCompart(int newComparts) 
 {
 	if (newComparts >=1 && newComparts <=3  ) 
@@ -22,6 +20,9 @@ void Torso::setCompart(int newComparts)
 	else { battery_comparts = -1; }
 	
 }
+
+
+
 
 void Head::setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description)
 {
@@ -46,6 +47,11 @@ void Arm::setGenValues(string new_name, int new_number, int new_type, double new
 	
 
 }
+void Arm::set_arm_power(double new_arm_power) 
+{
+	arm_power = new_arm_power;
+}
+
 
 void Battery::setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description)
 {
