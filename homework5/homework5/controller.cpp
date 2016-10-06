@@ -149,14 +149,57 @@ void create_part()
 			{
 				
 				myParts.push_back(new_torso);
-				cout << "New torso added! success! yay!\n";
+				cout << "New torso added! success! yay!\n==================\n";
 			}
 			else 
 			{
-				cout << "Bad input, object not added\n";
+				cout << "Bad input, object not added\n==================\n";
 			}
 
 			
+		}
+		else if (type == 2) 
+		{
+			Head * new_head = new Head;
+			new_head->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			myParts.push_back(new_head);
+			cout << "New head added! success! yay!\n==================\n";
+
+		}
+		else if (type == 3)
+		{
+			Arm * new_arm = new Arm;
+			new_arm->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			myParts.push_back(new_arm);
+			cout << "New arm added! success! yay!\n==================\n";
+		}
+		else if (type == 4)
+		{
+			Battery * new_battery = new Battery;
+			new_battery->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			cout << "Battery capacity: ";
+			cin >> battery_capacity;
+			new_battery->setBattCap(battery_capacity);
+			myParts.push_back(new_battery);
+			cout << "New battery added! success!\n==================\n";
+
+		}
+		else if (type == 5)
+		{
+			Locomotor* new_locomotor = new Locomotor;
+			
+			cout << "Locomotor max speed: ";
+			cin >> loco_maxspeed;
+			cout << "Locomotor power: ";
+			cin >> loco_power;
+
+			new_locomotor->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			new_locomotor->set_power_maxspeed(loco_maxspeed, loco_power);
+
+			myParts.push_back(new_locomotor);
+			cout << "New locomotor added! \n==================\n";
+
+
 		}
 
 

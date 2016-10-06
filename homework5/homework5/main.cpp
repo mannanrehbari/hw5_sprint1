@@ -6,7 +6,7 @@
 
 int main()
 {
-	// the controller 
+	//the next function call does all the work
 	control();
 
 	return  0;

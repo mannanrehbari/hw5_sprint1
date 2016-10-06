@@ -51,6 +51,7 @@ class Battery : public RobotPart
 {
 public:
 	double battery_capacity;
+	void setBattCap(double new_bat_cap);
 	virtual void setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description);
 };
 
@@ -59,6 +60,7 @@ class Locomotor : public RobotPart
 public:
 	double locomotor_maxspeed;
 	double locomotor_power;
+	void set_power_maxspeed(double newMaxSpeed, double newPower);
 	virtual void setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description);
 };
 

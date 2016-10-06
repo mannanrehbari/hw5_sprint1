@@ -9,10 +9,8 @@ void Torso::setGenValues(string new_name, int new_number, int new_type, double n
 	part_cost = new_cost;
 	part_description = new_description;
 
-	
-
-
 }
+
 
 void Torso::setCompart(int newComparts) 
 {
@@ -61,6 +59,12 @@ void Battery::setGenValues(string new_name, int new_number, int new_type, double
 	
 
 }
+void Battery::setBattCap(double new_bat_cap) 
+{
+	battery_capacity = new_bat_cap;
+}
+
+
 void Locomotor::setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description)
 {
 	part_name = new_name;
@@ -69,4 +73,10 @@ void Locomotor::setGenValues(string new_name, int new_number, int new_type, doub
 	part_weight = new_weight;
 	part_cost = new_cost;
 	part_description = new_description;
+}
+
+void Locomotor::set_power_maxspeed(double newMaxSpeed, double newPower) 
+{
+	locomotor_maxspeed = newMaxSpeed;
+	locomotor_power = newPower;
 }
