@@ -9,7 +9,7 @@ void control()
 	
 	int selection;
 
-	cout << "Welcome to main menu\n====================\n\n";
+	cout << "***** Welcome to Robbie Robot Shop *****\n\n";
 	print_main();
 
 	cout << "Selection: ";
@@ -68,23 +68,26 @@ void create()
 }
 void report()
 {
-	cout << "\n====================\nPrinting Vector of Objects\n";
+	cout << "\n\nPrinting Vector of Objects\n";
+	cout << "\n=======================================================================================================\n";
 	
 
-	cout << "Partname: " << "\t" << "Part Type:\n";
+	printf("%-15s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
+	cout << "=======================================================================================================\n";
+
 	for(unsigned int i= 0; i < myParts.size(); i++)
 	{
-		cout << (myParts[i])->part_name << "\t\t" << partType[(myParts[i])->part_type -1] << endl;
+		myParts[i]->print_part();
 	}
 
-	cout << "\n====================\n";
+	cout << "\n";
 
 
 }
 
 void print_main()
 {
-	cout << "\nMain:\n";
+	cout << "----------\n|  Main  |\n----------\n";
 	cout << "1: Create parts or model\n";
 	cout << "2: Display report \n";
 	cout << "3: Quit\n";
@@ -118,22 +121,35 @@ void create_part()
 	double loco_maxspeed;
 	double loco_power;
 
-	print_part_type();
+
+	bool name_length_ok = false;
+	bool description_ok = false;
 	
+	
+	print_part_type();
 	type = integer_validation();
 	
-
-
-
 	// 6 is key for previous menu after 5 part types
 	while (type != 6) 
 	{
 		cout << "\n\n==================\nAdd a(n) " << partType[type-1] << ":\n";
+		
 
 		cin.ignore();
-		cout << "Part name: ";
-		getline(cin, new_name);
-
+		cin.clear();
+		while(name_length_ok == false)
+		{
+			cout << "Part name: ";
+			getline(cin, new_name);
+			if (new_name.length() <=15) 
+			{
+				name_length_ok = true;
+			}
+			else { cout << "Enter name again! Max 15 characters\n"; }
+		}
+		
+		
+		
 		
 		cout << "Part number: ";
 		cin >> new_number;
@@ -144,9 +160,25 @@ void create_part()
 		cout << "Part cost: ";
 		cin >> new_cost;
 
+		
+		
 		cin.ignore();
-		cout << "Part description: ";
-		getline(cin, new_description);
+		cin.clear();
+		while (description_ok == false)
+		{
+			cout << "Part description: ";
+			getline(cin, new_description);
+			if (new_description.length() <= 15)
+			{
+				description_ok = true;
+			}
+			else { cout << "Enter description again! Max 15 characters\n"; }
+		}
+
+
+
+
+		
 
 		if (type == 1) 
 		{
@@ -223,11 +255,14 @@ void create_part()
 		
 		print_part_type();
 		type = integer_validation();
+		
+		
+		description_ok = false;
+		name_length_ok = false;
 	}
 
 
-	cin.ignore();
-	// getting the general parts 
+	
 	
 
 
