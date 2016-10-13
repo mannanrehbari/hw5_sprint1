@@ -71,22 +71,58 @@ void create()
 }
 void report()
 {
+	int selection;
+	cout << "Make a selection:\n1: Print robot models\n2:Print all parts in inventory\n";
+	cin >> selection;
+	if (selection == 1) 
+	{
+		list_model_vector();
+	}
+	else if (selection == 2) 
+	{
+		print_part_vector();
+	}
+
+}
+void print_part_vector() 
+{
 	cout << "\n\nPrinting Vector of Objects\n";
 	cout << "\n=======================================================================================================\n";
-	
+
 
 	printf("%-15s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
 	cout << "=======================================================================================================\n";
 
-	for(unsigned int i= 0; i < myParts.size(); i++)
+	for (unsigned int i = 0; i < myParts.size(); i++)
 	{
 		myParts[i]->print_part();
 	}
 
 	cout << "\n";
+}
+void list_model_vector() 
+{
+	
+	int selection;
+	cout << "\n==========================\n";
+	cout << "\tAvailable Models";
+	cout << "\n==========================\n";
+	cout << "Choose a model to display parts:\n";
 
+	printf("%-15s|%-10s|%-10s|\n", " Name", " Number" , " Price" );
+	for (unsigned int j = 0; j< myModels.size(); j++) 
+	{
+		myModels[j].print_each_model();
+	}
+
+	if (myModels.size() == 0) { return; }
+	
+	cout << "Selection:";
+	selection = integer_validation(); // it returns a valid int
+	myModels[selection].print_model_vector();
 
 }
+
 
 void print_main()
 {
@@ -278,12 +314,76 @@ void create_part()
 
 void create_model()
 {
+	
+	RobotModels newModel;
+	string bot_name;
+	double bot_price;
+	int bot_num;
+	
+	int selection;
 	cout << "=====================";
-	cout << "Select a torso:";
+	cout << "\n\nSelect a torso:\n\n";
+	selection = list_type_parts(1);
+	newModel.parts_in_robot.push_back(myParts[selection]);
+	
+	
 
+
+	cout << "=====================";
+	cout << "\n\nSelect a head:\n\n";
+	selection = list_type_parts(2);
+	newModel.parts_in_robot.push_back(myParts[selection]);
+
+	cout << "=====================";
+	cout << "\n\nSelect a arm:\n\n";
+	selection = list_type_parts(3);
+	newModel.parts_in_robot.push_back(myParts[selection]);
+
+	cout << "=====================";
+	cout << "\n\nSelect a battery:\n\n";
+	selection = list_type_parts(4);
+	newModel.parts_in_robot.push_back(myParts[selection]);
+
+	cout << "=====================";
+	cout << "\n\nSelect a locomotor:\n\n";
+	selection = list_type_parts(5);
+	newModel.parts_in_robot.push_back(myParts[selection]);
+
+	cout << "Enter name for bot: ";
+	getline(cin, bot_name);
+	bot_price = newModel.robot_price_calculator();
+	bot_num = RobotModels::st_model_num;
+
+	newModel.setValues(bot_num, bot_name, bot_price);
+	
+	myModels.push_back(newModel);
+	RobotModels::st_model_num++;
+	
 
 
 }
+int list_type_parts(int type)
+{
+	cout << "=======================================================================================================\n";
+	printf("%-15s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
+	cout << "=======================================================================================================\n";
+	int selection;
+	for (unsigned int i = 0; i< myParts.size(); i++) 
+	{
+		if (myParts[i]->part_type == type) 
+		{
+			myParts[i]->print_part();
+		}
+
+	}
+	cout << "Enter the part number: ";
+	cin >> selection;
+	cin.ignore();
+	return selection;
+
+}
+
+
 
 void create_order()
 {

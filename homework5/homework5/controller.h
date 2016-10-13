@@ -17,6 +17,7 @@ void create();
 void create_part(); //will create a part instance and add it to part vector
 
 void create_model();
+int list_type_parts(int type);
 
 
 
@@ -28,6 +29,8 @@ void report();
 void print_main();
 void print_create();
 void print_part_type();
+void print_part_vector();
+void list_model_vector();
 
 //to ensure integer input is valid 
 // not thoroughly implemented
