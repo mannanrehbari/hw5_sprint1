@@ -32,7 +32,7 @@ void Torso::print_part()
 	cout << right << setw(8) << part_weight << "|";
 	cout << right << setw(8) << part_cost << "|";
 	cout << left << setw(20) << part_description << "|";
-	
+	cout << left << "Bat.Comps: " << battery_comparts << "|";
 	
 	cout << endl;
 
@@ -63,8 +63,7 @@ void Head::print_part()
 	cout << right << setw(8) << part_weight << "|";
 	cout << right << setw(8) << part_cost << "|";
 	cout << left << setw(20) << part_description << "|";
-
-
+	
 	cout << endl;
 }
 
@@ -129,7 +128,7 @@ void Battery::print_part()
 	cout << right << setw(8) << part_weight << "|";
 	cout << right << setw(8) << part_cost << "|";
 	cout << left << setw(20) << part_description << "|";
-
+	cout << left << "Capacity: " << battery_capacity << "|";
 
 	cout << endl;
 	
@@ -161,7 +160,7 @@ void Locomotor::print_part()
 	cout << right << setw(8) << part_weight << "|";
 	cout << right << setw(8) << part_cost << "|";
 	cout << left << setw(20) << part_description << "|";
-
+	cout << left << "MaxSpeed: " << locomotor_maxspeed << "MaxPower: " << locomotor_power << "|";
 
 	cout << endl;
 	

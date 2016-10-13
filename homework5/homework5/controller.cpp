@@ -72,18 +72,19 @@ void create()
 void report()
 {
 	int selection;
-	cout << "Make a selection:\n1: Print robot models\n2:Print all parts in inventory\n";
+	cout << "\n---------------------------\n|Record of Parts and Models|\n---------------------------\n1: Print Parts\n2: Print Models\nSelection: ";
 	cin >> selection;
 	if (selection == 1) 
 	{
-		list_model_vector();
+		print_part_vector();
 	}
 	else if (selection == 2) 
 	{
-		print_part_vector();
+		list_model_vector();
 	}
 
 }
+
 void print_part_vector() 
 {
 	cout << "\n\nPrinting Vector of Objects\n";
@@ -92,21 +93,32 @@ void print_part_vector()
 
 	printf("%-15s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
 	cout << "=======================================================================================================\n";
-
-	for (unsigned int i = 0; i < myParts.size(); i++)
+	if (myParts.size() == 0)
 	{
-		myParts[i]->print_part();
+		cout << "\n No parts stored yet! \n\n";
+	}
+	else 
+	{
+		for (unsigned int i = 0; i < myParts.size(); i++)
+		{
+			myParts[i]->print_part();
+		}
+		cout << endl;
 	}
 
-	cout << "\n";
+	
+	
+	
+
+
 }
 void list_model_vector() 
 {
 	
 	int selection;
-	cout << "\n==========================\n";
-	cout << "\tAvailable Models";
-	cout << "\n==========================\n";
+	cout << "\n---------------------------\n";
+	cout << "|   Available Models   |";
+	cout << "\n---------------------------\n";
 	cout << "Choose a model to display parts:\n";
 
 	printf("%-15s|%-10s|%-10s|\n", " Name", " Number" , " Price" );
@@ -115,14 +127,17 @@ void list_model_vector()
 		myModels[j].print_each_model();
 	}
 
-	if (myModels.size() == 0) { return; }
+	if (myModels.size() == 0) 
+	{
+		cout << "\n\n\tNo models in vector!\n\n";
+		return; 
+	}
 	
 	cout << "Selection:";
 	selection = integer_validation(); // it returns a valid int
 	myModels[selection].print_model_vector();
 
 }
-
 
 void print_main()
 {
@@ -134,7 +149,7 @@ void print_main()
 }
 void print_create()
 {
-	cout << "\nCreate:\n";
+	cout << "\n------------\n| Create |\n------------\n";
 	cout << "1: Robot Part\n";
 	cout << "2: Robot Model\n";
 	cout << "3: Order\n";
@@ -310,8 +325,6 @@ void create_part()
 
 
 }
-
-
 void create_model()
 {
 	
@@ -362,6 +375,8 @@ void create_model()
 
 
 }
+
+
 int list_type_parts(int type)
 {
 	cout << "=======================================================================================================\n";
@@ -382,14 +397,13 @@ int list_type_parts(int type)
 	return selection;
 
 }
-
-
-
 void create_order()
 {
 	cout << "\nCreate a new order for a customer, update the vector, go back\n";
 }
 
+
+//minimal use functions
 int integer_validation()
 {
 	int num;
@@ -404,13 +418,12 @@ int integer_validation()
 	return num;
 
 }
-
 void print_part_type() 
 {
 	int i;
 	
 
-	cout << "\nChoose part type:\n";
+	cout << "\n----------------\n| Select Part Type|\n----------------\n";
 	for (i = 0; i < 5; i++)
 	{
 		cout << i + 1 << ": " << partType[i] << endl;
