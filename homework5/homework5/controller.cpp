@@ -3,6 +3,8 @@
 
 
 vector<RobotPart*> myParts;
+
+
 void control()
 {
 	
@@ -107,8 +109,8 @@ void create_part()
 {
 	//general description
 	string new_name;
-	int new_number;
-	int new_type;
+	
+	
 	double new_weight;
 	double new_cost;
 	string new_description;
@@ -151,8 +153,7 @@ void create_part()
 		
 		
 		
-		cout << "Part number: ";
-		cin >> new_number;
+		
 
 		cout << "Part weight: ";
 		cin >> new_weight;
@@ -185,7 +186,7 @@ void create_part()
 			cout << "Battery compartments: ";
 			cin >> battery_compartments;
 			Torso* new_torso = new Torso ;
-			new_torso->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			new_torso->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			new_torso->setCompart(battery_compartments);
 			if (new_torso->battery_comparts != -1) 
 			{
@@ -203,7 +204,7 @@ void create_part()
 		else if (type == 2) 
 		{
 			Head * new_head = new Head;
-			new_head->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			new_head->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			myParts.push_back(new_head);
 			cout << "New head added! success! yay!\n==================\n";
 
@@ -211,7 +212,7 @@ void create_part()
 		else if (type == 3)
 		{
 			Arm * new_arm = new Arm;
-			new_arm->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			new_arm->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			cout << "Arm power: ";
 			cin >> arm_power;
 			
@@ -222,7 +223,7 @@ void create_part()
 		else if (type == 4)
 		{
 			Battery * new_battery = new Battery;
-			new_battery->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			new_battery->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			cout << "Battery capacity: ";
 			cin >> battery_capacity;
 			new_battery->setBattCap(battery_capacity);
@@ -239,7 +240,7 @@ void create_part()
 			cout << "Locomotor power: ";
 			cin >> loco_power;
 
-			new_locomotor->setGenValues(new_name, new_number, type, new_weight, new_cost, new_description);
+			new_locomotor->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			new_locomotor->set_power_maxspeed(loco_maxspeed, loco_power);
 
 			myParts.push_back(new_locomotor);
@@ -247,7 +248,7 @@ void create_part()
 
 
 		}
-
+		RobotPart:: st_part_num++;
 
 
 
@@ -272,6 +273,7 @@ void create_part()
 
 
 }
+
 
 void create_model()
 {

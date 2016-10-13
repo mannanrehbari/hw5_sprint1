@@ -1,9 +1,13 @@
 #include "robotpart.h"
 
-void Torso::setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description)
+int RobotPart::st_part_num = 0;
+
+void Torso::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
 {
-	part_name = new_name;
-	part_number = new_number;
+	part_num = st_part_num;
+	
+	
+	part_name = new_name;	
 	part_type = new_type;
 	part_weight = new_weight;
 	part_cost = new_cost;
@@ -23,7 +27,7 @@ void Torso::setCompart(int newComparts)
 void Torso::print_part() 
 {
 	cout << left <<  setw(15) << part_name << "|";
-	cout << right << setw(10) << part_number << "|";
+	cout << right << setw(10) << part_num<< "|";
 	cout << left << setw(15) <<  partTypeCopy[part_type -1] << "|";
 	cout << right << setw(8) << part_weight << "|";
 	cout << right << setw(8) << part_cost << "|";
@@ -38,10 +42,13 @@ void Torso::print_part()
 
 
 
-void Head::setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description)
+void Head::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
 {
+	part_num = st_part_num;
+	
+	
 	part_name = new_name;
-	part_number = new_number;
+	
 	part_type = new_type;
 	part_weight = new_weight;
 	part_cost = new_cost;
@@ -51,7 +58,7 @@ void Head::setGenValues(string new_name, int new_number, int new_type, double ne
 void Head::print_part() 
 {
 	cout << left << setw(15) << part_name << "|";
-	cout << right << setw(10) << part_number << "|";
+	cout << right << setw(10) << part_num << "|";
 	cout << left << setw(15) << partTypeCopy[part_type - 1] << "|";
 	cout << right << setw(8) << part_weight << "|";
 	cout << right << setw(8) << part_cost << "|";
@@ -62,10 +69,12 @@ void Head::print_part()
 }
 
 
-void Arm::setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description)
+void Arm::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
 {
+	part_num = st_part_num;
+	
+	
 	part_name = new_name;
-	part_number = new_number;
 	part_type = new_type;
 	part_weight = new_weight;
 	part_cost = new_cost;
@@ -81,7 +90,7 @@ void Arm::set_arm_power(double new_arm_power)
 void Arm::print_part()
 {
 	cout << left << setw(15) << part_name << "|";
-	cout << right << setw(10) << part_number << "|";
+	cout << right << setw(10) << part_num << "|";
 	cout << left << setw(15) << partTypeCopy[part_type - 1] << "|";
 	cout << right << setw(8) << part_weight << "|";
 	cout << right << setw(8) << part_cost << "|";
@@ -93,11 +102,14 @@ void Arm::print_part()
 }
 
 
-void Battery::setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description)
+void Battery::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
 {
-	part_name = new_name;
-	part_number = new_number;
+	part_num = st_part_num;
+	
+	
+	part_name = new_name;	
 	part_type = new_type;
+
 	part_weight = new_weight;
 	part_cost = new_cost;
 	part_description = new_description;
@@ -112,7 +124,7 @@ void Battery::setBattCap(double new_bat_cap)
 void Battery::print_part()
 {
 	cout << left << setw(15) << part_name << "|";
-	cout << right << setw(10) << part_number << "|";
+	cout << right << setw(10) << part_num << "|";
 	cout << left << setw(15) << partTypeCopy[part_type - 1] << "|";
 	cout << right << setw(8) << part_weight << "|";
 	cout << right << setw(8) << part_cost << "|";
@@ -124,10 +136,13 @@ void Battery::print_part()
 }
 
 
-void Locomotor::setGenValues(string new_name, int new_number, int new_type, double new_weight, double new_cost, string new_description)
+void Locomotor::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
 {
+	part_num = st_part_num;
+	
+
 	part_name = new_name;
-	part_number = new_number;
+	
 	part_type = new_type;
 	part_weight = new_weight;
 	part_cost = new_cost;
@@ -141,7 +156,7 @@ void Locomotor::set_power_maxspeed(double newMaxSpeed, double newPower)
 void Locomotor::print_part()
 {
 	cout << left << setw(15) << part_name << "|";
-	cout << right << setw(10) << part_number << "|";
+	cout << right << setw(10) << part_num<< "|";
 	cout << left << setw(15) << partTypeCopy[part_type - 1] << "|";
 	cout << right << setw(8) << part_weight << "|";
 	cout << right << setw(8) << part_cost << "|";
