@@ -24,12 +24,18 @@
     <ClCompile Include="controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RobotModels.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="robotpart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RobotModels.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

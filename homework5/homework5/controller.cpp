@@ -1,8 +1,9 @@
 #include "controller.h"
 #include "robotpart.h"
-
+#include "RobotModels.h"
 
 vector<RobotPart*> myParts;
+vector<RobotModels> myModels;
 
 
 void control()
@@ -277,7 +278,11 @@ void create_part()
 
 void create_model()
 {
-	cout << "\n\nCreate a new robot model, add it model vector, go back\n";
+	cout << "=====================";
+	cout << "Select a torso:";
+
+
+
 }
 
 void create_order()
