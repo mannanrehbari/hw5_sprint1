@@ -2,9 +2,11 @@
 #define CONTROLLER_H_
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <stdlib.h>
+
 
 using namespace std;
 
@@ -35,6 +37,10 @@ void list_model_vector();
 //to ensure integer input is valid 
 // not thoroughly implemented
 int integer_validation();
+
+
+//File io for vector of objects
+void write_partvector();
 
 #endif // !1
 

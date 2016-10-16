@@ -33,6 +33,10 @@ void control()
 		selection = integer_validation();
 	}
 
+	write_partvector();
+
+
+
 
 
 
@@ -72,16 +76,26 @@ void create()
 void report()
 {
 	int selection;
-	cout << "\n---------------------------\n|Record of Parts and Models|\n---------------------------\n1: Print Parts\n2: Print Models\nSelection: ";
+	cout << "\n---------------------------\n|Record of Parts and Models|\n---------------------------\n1: Print Parts\n2: Print Models\n3: Main\nSelection: ";
 	cin >> selection;
-	if (selection == 1) 
+	
+	while(selection != 3)
 	{
-		print_part_vector();
+		if (selection == 1)
+		{
+			print_part_vector();
+		}
+		else if (selection == 2)
+		{
+			list_model_vector();
+		}
+
+		cout << "\n---------------------------\n|Record of Parts and Models|\n---------------------------\n1: Print Parts\n2: Print Models\n3: Main\nSelection: ";
+		cin >> selection;
+
 	}
-	else if (selection == 2) 
-	{
-		list_model_vector();
-	}
+	
+	
 
 }
 
@@ -466,6 +480,7 @@ void order_helper()
 
 
 
+
 }
 void create_order()
 {
@@ -502,3 +517,25 @@ void print_part_type()
 	}
 	cout << "6: Previous menu\nSelection: ";
 };
+
+
+void write_partvector() 
+{
+		//writing parts to file
+	ofstream partsOut;
+	partsOut.open("partsVector.txt");
+
+	for (unsigned int k = 0; k < myParts.size(); k++) 
+	{
+		partsOut << myParts[k]->part_name << endl;
+		partsOut << myParts[k]->part_num << endl;
+		partsOut << myParts[k]->part_cost << endl;
+		partsOut << myParts[k]->part_description << endl;
+		partsOut << myParts[k]->part_type << endl;
+		partsOut << myParts[k]->part_weight << endl;
+	}
+	cout << "\nVEctor of Parts stored in file! \n";
+	partsOut.close();
+		
+
+}
