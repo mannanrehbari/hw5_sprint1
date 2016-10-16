@@ -1,6 +1,6 @@
 #include "robotpart.h"
 
-int RobotPart::st_part_num = 0;
+
 
 void Torso::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
 {
@@ -38,6 +38,27 @@ void Torso::print_part()
 
 
 }
+void Torso::save_part() 
+{
+	fstream outFile;
+	outFile.open(parts_directory, ios::app);
+
+	//general info
+	outFile << part_name << endl;
+	outFile << part_num << endl;
+	outFile << part_type << endl;
+	outFile << part_weight << endl;
+	outFile << part_cost << endl;
+	outFile << part_description << endl;
+
+	//part-specific info
+	outFile << battery_comparts << endl;
+
+	outFile << endl;
+	outFile.close();
+
+}
+
 
 
 
@@ -66,6 +87,27 @@ void Head::print_part()
 	
 	cout << endl;
 }
+void Head::save_part()
+{
+	fstream outFile;
+	outFile.open(parts_directory, ios::app);
+
+	//general info
+	outFile << part_name << endl;
+	outFile << part_num << endl;
+	outFile << part_type << endl;
+	outFile << part_weight << endl;
+	outFile << part_cost << endl;
+	outFile << part_description << endl;
+
+	//part-specific info
+	
+
+	outFile << endl;
+	outFile.close();
+
+}
+
 
 
 void Arm::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
@@ -99,6 +141,27 @@ void Arm::print_part()
 	cout << endl;
 	
 }
+void Arm::save_part()
+{
+	fstream outFile;
+	outFile.open(parts_directory, ios::app);
+
+	//general info
+	outFile << part_name << endl;
+	outFile << part_num << endl;
+	outFile << part_type << endl;
+	outFile << part_weight << endl;
+	outFile << part_cost << endl;
+	outFile << part_description << endl;
+
+	//part-specific info
+	outFile << arm_power << endl;
+
+	outFile << endl;
+	outFile.close();
+
+}
+
 
 
 void Battery::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
@@ -133,6 +196,27 @@ void Battery::print_part()
 	cout << endl;
 	
 }
+void Battery::save_part()
+{
+	fstream outFile;
+	outFile.open(parts_directory, ios::app);
+
+	//general info
+	outFile << part_name << endl;
+	outFile << part_num << endl;
+	outFile << part_type << endl;
+	outFile << part_weight << endl;
+	outFile << part_cost << endl;
+	outFile << part_description << endl;
+
+	//part-specific info
+	outFile << battery_capacity << endl;
+
+	outFile << endl;
+	outFile.close();
+
+}
+
 
 
 void Locomotor::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
@@ -164,4 +248,25 @@ void Locomotor::print_part()
 
 	cout << endl;
 	
+}
+void Locomotor::save_part()
+{
+	fstream outFile;
+	outFile.open(parts_directory, ios::app);
+
+	//general info
+	outFile << part_name << endl;
+	outFile << part_num << endl;
+	outFile << part_type << endl;
+	outFile << part_weight << endl;
+	outFile << part_cost << endl;
+	outFile << part_description << endl;
+
+	//part-specific info
+	outFile << locomotor_maxspeed << endl;
+	outFile << locomotor_power << endl;
+
+	outFile << endl;
+	outFile.close();
+
 }

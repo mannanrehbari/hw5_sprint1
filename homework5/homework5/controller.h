@@ -41,6 +41,8 @@ int integer_validation();
 
 //File io for vector of objects
 void write_partvector();
+void read_partvector();
+
 
 #endif // !1
 

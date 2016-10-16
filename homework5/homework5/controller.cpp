@@ -6,13 +6,22 @@ vector<RobotPart*> myParts;
 vector<RobotModels> myModels;
 
 
+int RobotPart::st_part_num = 0;
+int RobotModels::st_model_num = 0;
+
 void control()
 {
 	
 	
 	int selection;
 
+
 	cout << "***** Welcome to Robbie Robot Shop *****\n\n";
+	//reading existing data from files
+	read_partvector();
+	RobotPart::st_part_num = myParts.size();
+
+
 	print_main();
 
 	cout << "Selection: ";
@@ -33,12 +42,7 @@ void control()
 		selection = integer_validation();
 	}
 
-	write_partvector();
-
-
-
-
-
+	
 
 }
 
@@ -234,10 +238,37 @@ void create_part()
 		
 
 		cout << "Part weight: ";
-		cin >> new_weight;
+		while (1) {
+			if (cin >>new_weight) {
+				// valid number
+				break;
+			}
+			else {
+				// not a valid number
+				cout << "Invalid Input! Please input a numerical value." << endl;
+				cin.clear();
+				while (cin.get() != '\n'); // empty loop
+			}
+		}
+
+
+		
 
 		cout << "Part cost: ";
-		cin >> new_cost;
+		while (1) {
+			if (cin >> new_cost) {
+				// valid number
+				break;
+			}
+			else {
+				// not a valid number
+				cout << "Invalid Input! Please input a numerical value." << endl;
+				cin.clear();
+				while (cin.get() != '\n'); // empty loop
+			}
+		}
+
+		
 
 		
 		
@@ -262,13 +293,33 @@ void create_part()
 		if (type == 1) 
 		{
 			cout << "Battery compartments: ";
-			cin >> battery_compartments;
+			while (1) {
+				if (cin >> battery_compartments) {
+					if (battery_compartments >=1 && battery_compartments <=3) 
+					{
+						break;
+					}
+					else { cout << "Invalid range!\n"; }
+					
+				}
+				else {
+					// not a valid number
+					cout << "Invalid Input! Please input a numerical value." << endl;
+					cin.clear();
+					while (cin.get() != '\n'); // empty loop
+				}
+			}
+
+
+
+
 			Torso* new_torso = new Torso ;
 			new_torso->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			new_torso->setCompart(battery_compartments);
 			if (new_torso->battery_comparts != -1) 
 			{
 				
+				new_torso->save_part();
 				myParts.push_back(new_torso);
 				cout << "New torso added! success! yay!\n==================\n";
 			}
@@ -283,6 +334,7 @@ void create_part()
 		{
 			Head * new_head = new Head;
 			new_head->setGenValues(new_name, type, new_weight, new_cost, new_description);
+			new_head->save_part();
 			myParts.push_back(new_head);
 			cout << "New head added! success! yay!\n==================\n";
 
@@ -295,6 +347,7 @@ void create_part()
 			cin >> arm_power;
 			
 			new_arm->set_arm_power(arm_power);
+			new_arm->save_part();
 			myParts.push_back(new_arm);
 			cout << "New arm added! success! yay!\n==================\n";
 		}
@@ -305,6 +358,7 @@ void create_part()
 			cout << "Battery capacity: ";
 			cin >> battery_capacity;
 			new_battery->setBattCap(battery_capacity);
+			new_battery->save_part();
 			myParts.push_back(new_battery);
 			cout << "New battery added! success!\n==================\n";
 
@@ -321,6 +375,7 @@ void create_part()
 			new_locomotor->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			new_locomotor->set_power_maxspeed(loco_maxspeed, loco_power);
 
+			new_locomotor->save_part();
 			myParts.push_back(new_locomotor);
 			cout << "New locomotor added! \n==================\n";
 
@@ -494,13 +549,17 @@ void create_order()
 int integer_validation()
 {
 	int num;
-	cin >> num;
-	while (!cin)
-	{
-
-		cin.clear();
-		cin.ignore();
-		cin >> num;
+	while (1) {
+		if (cin >> num) {
+			// valid number
+			break;
+		}
+		else {
+			// not a valid number
+			cout << "Invalid Input! Please input a numerical value." << endl;
+			cin.clear();
+			while (cin.get() != '\n'); // empty loop
+		}
 	}
 	return num;
 
@@ -519,23 +578,127 @@ void print_part_type()
 };
 
 
-void write_partvector() 
-{
-		//writing parts to file
-	ofstream partsOut;
-	partsOut.open("partsVector.txt");
 
-	for (unsigned int k = 0; k < myParts.size(); k++) 
+void read_partvector() 
+{
+	//This declaration order is reflecting how each item is stored and read from file
+	string new_name ;
+
+	int new_num ;
+	int new_type ;
+	
+	double new_weight;
+	double new_cost ;
+	
+	string  new_description;
+
+
+	//to hold eachLine
+	string eachLine;
+
+	//part-specific details
+	double new_loco_maxspeed;
+	double new_loco_power;
+
+	double new_battery_capacity;
+	
+	double new_armpower;
+
+	double new_batt_comparts; 
+
+	//opening file for reading
+	ifstream readParts;
+	readParts.open(parts_directory);
+
+	while (getline(readParts, eachLine))
 	{
-		partsOut << myParts[k]->part_name << endl;
-		partsOut << myParts[k]->part_num << endl;
-		partsOut << myParts[k]->part_cost << endl;
-		partsOut << myParts[k]->part_description << endl;
-		partsOut << myParts[k]->part_type << endl;
-		partsOut << myParts[k]->part_weight << endl;
-	}
-	cout << "\nVEctor of Parts stored in file! \n";
-	partsOut.close();
+		new_name = eachLine;
 		
+		getline(readParts, eachLine);
+		new_num = atoi(eachLine.c_str()); //read part number; change into int
+		getline(readParts, eachLine);
+		new_type = atoi(eachLine.c_str()); //read type number; change into int
+
+		getline(readParts, eachLine);
+		new_weight = atof(eachLine.c_str()); //change weight into a double
+		getline(readParts, eachLine);
+		new_cost = atof(eachLine.c_str()); //change cost into a double
+
+		getline(readParts, eachLine);
+		new_description = eachLine; //read the description for part
+
+		// "torso", "head", "arm", "battery", "locomotor"
+		//read 
+
+		if (new_type == 1) 
+		{
+			getline(readParts, eachLine);
+			new_batt_comparts = atof(eachLine.c_str());
+
+			Torso* new_torso = new Torso;
+			new_torso->setGenValues(new_name, new_type, new_weight, new_cost, new_description);
+			new_torso->setCompart(new_batt_comparts);
+			
+			myParts.push_back(new_torso);
+		
+		}
+		else if (new_type == 2) 
+		{
+			Head * new_head = new Head;
+			new_head->setGenValues(new_name, new_type, new_weight, new_cost, new_description);
+			myParts.push_back(new_head);
+
+		}
+		else if (new_type == 3)
+		{
+			getline(readParts, eachLine);
+			new_armpower = atof(eachLine.c_str());
+			Arm * new_arm = new Arm;
+			new_arm->setGenValues(new_name, new_type, new_weight, new_cost, new_description);
+			new_arm->set_arm_power(new_armpower);
+			myParts.push_back(new_arm);
+
+		}
+		else if (new_type == 4)
+		{
+			getline(readParts, eachLine);
+			new_battery_capacity = atof(eachLine.c_str());
+			
+			Battery * new_battery = new Battery;
+			new_battery->setGenValues(new_name, new_type, new_weight, new_cost, new_description);
+			new_battery->setBattCap(new_battery_capacity);
+			myParts.push_back(new_battery);
+
+		}
+		else if (new_type == 5)
+		{
+
+			getline(readParts, eachLine);
+			new_loco_maxspeed = atof(eachLine.c_str());
+
+			getline(readParts, eachLine);
+			new_loco_power = atof(eachLine.c_str());
+
+
+			Locomotor* new_locomotor = new Locomotor;
+			new_locomotor->setGenValues(new_name, new_type, new_weight, new_cost, new_description);
+			new_locomotor->set_power_maxspeed(new_loco_maxspeed, new_loco_power);
+
+			myParts.push_back(new_locomotor);
+
+
+		}
+
+		//Throw away the empty line
+		getline(readParts, eachLine);
+		RobotPart::st_part_num++;
+
+		
+	}
+
+	readParts.close();
+
+
+
 
 }

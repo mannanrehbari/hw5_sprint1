@@ -1,6 +1,6 @@
 #include "RobotModels.h"
 
-int RobotModels::st_model_num = 0;
+
 
 double RobotModels::robot_price_calculator() 
 {
@@ -17,7 +17,7 @@ void RobotModels::print_each_model()
 {
 	cout << left << setw(15) << robot_name << "|";
 	cout << left << setw(10) << robot_number << "|";
-	cout << left << setw(10) << robot_price << "|"<< endl;
+	cout << left << setw(10) << robot_price << "|"<< endl; 
 
 
 }
