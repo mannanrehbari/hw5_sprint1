@@ -135,7 +135,19 @@ void list_model_vector()
 	
 	cout << "Selection:";
 	selection = integer_validation(); // it returns a valid int
+
+	// The next lines will print the vector of constituent parts 
+	cout << "\nPrinting parts in model no: " << selection << endl;
+	cout << "=======================================================================================================\n";
+
+
+	printf("%-15s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
+	cout << "=======================================================================================================\n";
+
 	myModels[selection].print_model_vector();
+	cout << "=======================================================================================================\n\n";
+
+
 
 }
 
@@ -397,9 +409,69 @@ int list_type_parts(int type)
 	return selection;
 
 }
+
+
+void order_helper() 
+{
+	double profit_percent;
+	double model_saleprice;
+	int num_robots;
+	double order_cost;
+
+
+	int selection;
+	cout << "Choose a model for order:\n";
+
+	printf("%-15s|%-10s|%-10s|\n", " Name", " Number", " Price");
+	for (unsigned int j = 0; j< myModels.size(); j++)
+	{
+		myModels[j].print_each_model();
+	}
+
+	if (myModels.size() == 0)
+	{
+		cout << "\n\n\tNo models available!\n\n";
+		return;
+	}
+
+	cout << "Selection:";
+	selection = integer_validation(); // it returns a valid int
+
+	
+	cout << "Profit percent on the model : ";
+	cin >> profit_percent;
+	cin.ignore();
+
+	model_saleprice = (myModels[selection].robot_price *(profit_percent / 100.0)) + myModels[selection].robot_price;
+
+
+									  // The next lines will print the vector of constituent parts 
+	cout << "\nDetails of model no: " << selection << endl;
+	cout << "=======================================================================================================\n";
+
+	printf("%-15s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
+	cout << "=======================================================================================================\n";
+
+	myModels[selection].print_model_vector();
+	cout << "=======================================================================================================\n\n";
+
+	cout << "Total Robot price per robot: " << model_saleprice << endl;
+	cout << "Enter the quantity of robots: ";
+	cin >> num_robots;
+
+	order_cost = num_robots * model_saleprice;
+	cout << "Your total cost of order is: " << order_cost << endl;
+	cout << "Thank you for your order!\n";
+
+
+
+
+}
 void create_order()
 {
-	cout << "\nCreate a new order for a customer, update the vector, go back\n";
+	cout << "\n-----------------\n| Create a new order|\n------------------\n " ;
+	order_helper();
+	
 }
 
 
