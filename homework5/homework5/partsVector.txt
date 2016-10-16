@@ -28,3 +28,28 @@ easyhead
 12
 asdfasdfasdf
 
+torso3
+4
+1
+444
+21
+invalid descrip
+3
+
+locomtor4
+5
+5
+0.1
+0.9
+best loco
+24
+4
+
+basterys
+6
+4
+13
+13
+best battery
+13
+

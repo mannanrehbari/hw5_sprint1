@@ -11,8 +11,8 @@ int RobotModels::st_model_num = 0;
 
 void control()
 {
-	
-	
+
+
 	int selection;
 
 
@@ -42,7 +42,7 @@ void control()
 		selection = integer_validation();
 	}
 
-	
+
 
 }
 
@@ -82,8 +82,8 @@ void report()
 	int selection;
 	cout << "\n---------------------------\n|Record of Parts and Models|\n---------------------------\n1: Print Parts\n2: Print Models\n3: Main\nSelection: ";
 	cin >> selection;
-	
-	while(selection != 3)
+
+	while (selection != 3)
 	{
 		if (selection == 1)
 		{
@@ -98,12 +98,12 @@ void report()
 		cin >> selection;
 
 	}
-	
-	
+
+
 
 }
 
-void print_part_vector() 
+void print_part_vector()
 {
 	cout << "\n\nPrinting Vector of Objects\n";
 	cout << "\n=======================================================================================================\n";
@@ -115,7 +115,7 @@ void print_part_vector()
 	{
 		cout << "\n No parts stored yet! \n\n";
 	}
-	else 
+	else
 	{
 		for (unsigned int i = 0; i < myParts.size(); i++)
 		{
@@ -124,33 +124,33 @@ void print_part_vector()
 		cout << endl;
 	}
 
-	
-	
-	
+
+
+
 
 
 }
-void list_model_vector() 
+void list_model_vector()
 {
-	
+
 	int selection;
 	cout << "\n---------------------------\n";
 	cout << "|   Available Models   |";
 	cout << "\n---------------------------\n";
 	cout << "Choose a model to display parts:\n";
 
-	printf("%-15s|%-10s|%-10s|\n", " Name", " Number" , " Price" );
-	for (unsigned int j = 0; j< myModels.size(); j++) 
+	printf("%-15s|%-10s|%-10s|\n", " Name", " Number", " Price");
+	for (unsigned int j = 0; j < myModels.size(); j++)
 	{
 		myModels[j].print_each_model();
 	}
 
-	if (myModels.size() == 0) 
+	if (myModels.size() == 0)
 	{
 		cout << "\n\n\tNo models in vector!\n\n";
-		return; 
+		return;
 	}
-	
+
 	cout << "Selection:";
 	selection = integer_validation(); // it returns a valid int
 
@@ -187,12 +187,13 @@ void print_create()
 
 }
 
+//This next function creates new parts
 void create_part()
 {
 	//general description
 	string new_name;
-	
-	
+
+
 	double new_weight;
 	double new_cost;
 	string new_description;
@@ -208,70 +209,47 @@ void create_part()
 
 	bool name_length_ok = false;
 	bool description_ok = false;
-	
-	
+
+
 	print_part_type();
 	type = integer_validation();
-	
+
 	// 6 is key for previous menu after 5 part types
-	while (type != 6) 
+	while (type != 6)
 	{
-		cout << "\n\n==================\nAdd a(n) " << partType[type-1] << ":\n";
-		
+		cout << "\n\n==================\nAdd a(n) " << partType[type - 1] << ":\n";
+
 
 		cin.ignore();
 		cin.clear();
-		while(name_length_ok == false)
+		while (name_length_ok == false)
 		{
 			cout << "Part name: ";
 			getline(cin, new_name);
-			if (new_name.length() <=15) 
+			if (new_name.length() <= 15)
 			{
 				name_length_ok = true;
 			}
 			else { cout << "Enter name again! Max 15 characters\n"; }
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 
 		cout << "Part weight: ";
-		while (1) {
-			if (cin >>new_weight) {
-				// valid number
-				break;
-			}
-			else {
-				// not a valid number
-				cout << "Invalid Input! Please input a numerical value." << endl;
-				cin.clear();
-				while (cin.get() != '\n'); // empty loop
-			}
-		}
+		new_weight = double_validation();
 
 
-		
 
 		cout << "Part cost: ";
-		while (1) {
-			if (cin >> new_cost) {
-				// valid number
-				break;
-			}
-			else {
-				// not a valid number
-				cout << "Invalid Input! Please input a numerical value." << endl;
-				cin.clear();
-				while (cin.get() != '\n'); // empty loop
-			}
-		}
+		new_cost = double_validation();
 
-		
 
-		
-		
+
+
+
 		cin.ignore();
 		cin.clear();
 		while (description_ok == false)
@@ -288,55 +266,45 @@ void create_part()
 
 
 
-		
 
-		if (type == 1) 
+
+		if (type == 1)
 		{
 			cout << "Battery compartments: ";
-			while (1) {
-				if (cin >> battery_compartments) {
-					if (battery_compartments >=1 && battery_compartments <=3) 
-					{
-						break;
-					}
-					else { cout << "Invalid range!\n"; }
-					
+			while (1)
+			{
+				battery_compartments = double_validation();
+				if (battery_compartments >= 1 && battery_compartments <= 3)
+				{
+					break;
 				}
-				else {
-					// not a valid number
-					cout << "Invalid Input! Please input a numerical value." << endl;
-					cin.clear();
-					while (cin.get() != '\n'); // empty loop
+				else
+				{
+					cout << "Invalid Range!";
 				}
+
 			}
 
 
 
-
-			Torso* new_torso = new Torso ;
+			Torso* new_torso = new Torso;
 			new_torso->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			new_torso->setCompart(battery_compartments);
-			if (new_torso->battery_comparts != -1) 
-			{
-				
-				new_torso->save_part();
-				myParts.push_back(new_torso);
-				cout << "New torso added! success! yay!\n==================\n";
-			}
-			else 
-			{
-				cout << "Bad input, object not added\n==================\n";
-			}
 
-			
+			new_torso->save_part();
+			myParts.push_back(new_torso);
+			cout << "New torso added!\n\n";
+
+
+
 		}
-		else if (type == 2) 
+		else if (type == 2)
 		{
 			Head * new_head = new Head;
 			new_head->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			new_head->save_part();
 			myParts.push_back(new_head);
-			cout << "New head added! success! yay!\n==================\n";
+			cout << "New head added! \n\n";
 
 		}
 		else if (type == 3)
@@ -344,83 +312,75 @@ void create_part()
 			Arm * new_arm = new Arm;
 			new_arm->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			cout << "Arm power: ";
-			cin >> arm_power;
-			
+			arm_power = double_validation();
+
 			new_arm->set_arm_power(arm_power);
 			new_arm->save_part();
 			myParts.push_back(new_arm);
-			cout << "New arm added! success! yay!\n==================\n";
+			cout << "New arm added! \n\n";
 		}
 		else if (type == 4)
 		{
 			Battery * new_battery = new Battery;
 			new_battery->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			cout << "Battery capacity: ";
-			cin >> battery_capacity;
+			battery_capacity = double_validation();
+			
 			new_battery->setBattCap(battery_capacity);
 			new_battery->save_part();
 			myParts.push_back(new_battery);
-			cout << "New battery added! success!\n==================\n";
+			cout << "New battery added! \n\n";
 
 		}
 		else if (type == 5)
 		{
 			Locomotor* new_locomotor = new Locomotor;
-			
+
 			cout << "Locomotor max speed: ";
-			cin >> loco_maxspeed;
+			loco_maxspeed = double_validation();
 			cout << "Locomotor power: ";
-			cin >> loco_power;
+			loco_power = double_validation();
 
 			new_locomotor->setGenValues(new_name, type, new_weight, new_cost, new_description);
 			new_locomotor->set_power_maxspeed(loco_maxspeed, loco_power);
 
 			new_locomotor->save_part();
 			myParts.push_back(new_locomotor);
-			cout << "New locomotor added! \n==================\n";
+			cout << "New locomotor added!\n\n";
 
 
 		}
-		RobotPart:: st_part_num++;
+		RobotPart::st_part_num++;
 
 
 
 
-		
+
 		print_part_type();
 		type = integer_validation();
-		
-		
+
+
 		description_ok = false;
 		name_length_ok = false;
 	}
 
 
-	
-	
-
-
-
-
-
-
-
 }
 void create_model()
 {
-	
+
 	RobotModels newModel;
 	string bot_name;
 	double bot_price;
 	int bot_num;
-	
+
 	int selection;
 	cout << "=====================";
 	cout << "\n\nSelect a torso:\n\n";
 	selection = list_type_parts(1);
 	newModel.parts_in_robot.push_back(myParts[selection]);
-	
-	
+
+
 
 
 	cout << "=====================";
@@ -449,14 +409,32 @@ void create_model()
 	bot_num = RobotModels::st_model_num;
 
 	newModel.setValues(bot_num, bot_name, bot_price);
-	
+
 	myModels.push_back(newModel);
 	RobotModels::st_model_num++;
-	
+
 
 
 }
+double double_validation()
+{
+	double valueTR;
+	while (1) {
+		if (cin >> valueTR) {
+			// valid number
+			break;
+		}
+		else {
+			// not a valid number
+			cout << "Invalid Input! Please input a numerical value." << endl;
+			cin.clear();
+			while (cin.get() != '\n'); // empty loop
+		}
+	}
+	return valueTR;
 
+
+}
 
 int list_type_parts(int type)
 {
@@ -464,9 +442,9 @@ int list_type_parts(int type)
 	printf("%-15s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
 	cout << "=======================================================================================================\n";
 	int selection;
-	for (unsigned int i = 0; i< myParts.size(); i++) 
+	for (unsigned int i = 0; i < myParts.size(); i++)
 	{
-		if (myParts[i]->part_type == type) 
+		if (myParts[i]->part_type == type)
 		{
 			myParts[i]->print_part();
 		}
@@ -480,7 +458,7 @@ int list_type_parts(int type)
 }
 
 
-void order_helper() 
+void order_helper()
 {
 	double profit_percent;
 	double model_saleprice;
@@ -492,7 +470,7 @@ void order_helper()
 	cout << "Choose a model for order:\n";
 
 	printf("%-15s|%-10s|%-10s|\n", " Name", " Number", " Price");
-	for (unsigned int j = 0; j< myModels.size(); j++)
+	for (unsigned int j = 0; j < myModels.size(); j++)
 	{
 		myModels[j].print_each_model();
 	}
@@ -506,7 +484,7 @@ void order_helper()
 	cout << "Selection:";
 	selection = integer_validation(); // it returns a valid int
 
-	
+
 	cout << "Profit percent on the model : ";
 	cin >> profit_percent;
 	cin.ignore();
@@ -514,7 +492,7 @@ void order_helper()
 	model_saleprice = (myModels[selection].robot_price *(profit_percent / 100.0)) + myModels[selection].robot_price;
 
 
-									  // The next lines will print the vector of constituent parts 
+	// The next lines will print the vector of constituent parts 
 	cout << "\nDetails of model no: " << selection << endl;
 	cout << "=======================================================================================================\n";
 
@@ -539,9 +517,9 @@ void order_helper()
 }
 void create_order()
 {
-	cout << "\n-----------------\n| Create a new order|\n------------------\n " ;
+	cout << "\n-----------------\n| Create a new order|\n------------------\n ";
 	order_helper();
-	
+
 }
 
 
@@ -564,10 +542,10 @@ int integer_validation()
 	return num;
 
 }
-void print_part_type() 
+void print_part_type()
 {
 	int i;
-	
+
 
 	cout << "\n----------------\n| Select Part Type|\n----------------\n";
 	for (i = 0; i < 5; i++)
@@ -579,17 +557,17 @@ void print_part_type()
 
 
 
-void read_partvector() 
+void read_partvector()
 {
 	//This declaration order is reflecting how each item is stored and read from file
-	string new_name ;
+	string new_name;
 
-	int new_num ;
-	int new_type ;
-	
+	int new_num;
+	int new_type;
+
 	double new_weight;
-	double new_cost ;
-	
+	double new_cost;
+
 	string  new_description;
 
 
@@ -601,10 +579,10 @@ void read_partvector()
 	double new_loco_power;
 
 	double new_battery_capacity;
-	
+
 	double new_armpower;
 
-	double new_batt_comparts; 
+	double new_batt_comparts;
 
 	//opening file for reading
 	ifstream readParts;
@@ -613,7 +591,7 @@ void read_partvector()
 	while (getline(readParts, eachLine))
 	{
 		new_name = eachLine;
-		
+
 		getline(readParts, eachLine);
 		new_num = atoi(eachLine.c_str()); //read part number; change into int
 		getline(readParts, eachLine);
@@ -630,7 +608,7 @@ void read_partvector()
 		// "torso", "head", "arm", "battery", "locomotor"
 		//read 
 
-		if (new_type == 1) 
+		if (new_type == 1)
 		{
 			getline(readParts, eachLine);
 			new_batt_comparts = atof(eachLine.c_str());
@@ -638,11 +616,11 @@ void read_partvector()
 			Torso* new_torso = new Torso;
 			new_torso->setGenValues(new_name, new_type, new_weight, new_cost, new_description);
 			new_torso->setCompart(new_batt_comparts);
-			
+
 			myParts.push_back(new_torso);
-		
+
 		}
-		else if (new_type == 2) 
+		else if (new_type == 2)
 		{
 			Head * new_head = new Head;
 			new_head->setGenValues(new_name, new_type, new_weight, new_cost, new_description);
@@ -663,7 +641,7 @@ void read_partvector()
 		{
 			getline(readParts, eachLine);
 			new_battery_capacity = atof(eachLine.c_str());
-			
+
 			Battery * new_battery = new Battery;
 			new_battery->setGenValues(new_name, new_type, new_weight, new_cost, new_description);
 			new_battery->setBattCap(new_battery_capacity);
@@ -693,7 +671,7 @@ void read_partvector()
 		getline(readParts, eachLine);
 		RobotPart::st_part_num++;
 
-		
+
 	}
 
 	readParts.close();

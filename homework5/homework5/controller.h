@@ -17,6 +17,7 @@ void control();
 //for creating instances 
 void create();
 void create_part(); //will create a part instance and add it to part vector
+double double_validation();
 
 void create_model();
 int list_type_parts(int type);
@@ -40,7 +41,7 @@ int integer_validation();
 
 
 //File io for vector of objects
-void write_partvector();
+
 void read_partvector();
 
 
