@@ -555,8 +555,6 @@ void print_part_type()
 	cout << "6: Previous menu\nSelection: ";
 };
 
-
-
 void read_partvector()
 {
 	//This declaration order is reflecting how each item is stored and read from file
