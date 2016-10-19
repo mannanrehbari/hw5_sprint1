@@ -2,9 +2,9 @@
 
 
 
-void Torso::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
+void Torso::setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description)
 {
-	part_num = st_part_num;
+	part_num = new_num;
 	
 	
 	part_name = new_name;	
@@ -24,9 +24,10 @@ void Torso::setCompart(int newComparts)
 	else { battery_comparts = -1; }
 	
 }
-void Torso::print_part() 
+void Torso::print_part(int part_index) 
 {
 	cout << left <<  setw(15) << part_name << "|";
+	cout << left << setw(5) << part_index << "|";
 	cout << right << setw(10) << part_num<< "|";
 	cout << left << setw(15) <<  partTypeCopy[part_type -1] << "|";
 	cout << right << setw(8) << part_weight << "|";
@@ -38,15 +39,15 @@ void Torso::print_part()
 
 
 }
-void Torso::save_part() 
+void Torso::save_part(string fileAdd) 
 {
 	fstream outFile;
-	outFile.open(parts_directory, ios::app);
+	outFile.open(fileAdd, ios::app);
 
 	//general info
+	outFile << part_type << endl;
 	outFile << part_name << endl;
 	outFile << part_num << endl;
-	outFile << part_type << endl;
 	outFile << part_weight << endl;
 	outFile << part_cost << endl;
 	outFile << part_description << endl;
@@ -58,14 +59,17 @@ void Torso::save_part()
 	outFile.close();
 
 }
-
-
-
-
-
-void Head::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
+int Torso::get_int_one() 
 {
-	part_num = st_part_num;
+	return battery_comparts;
+}
+
+
+
+
+void Head::setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description)
+{
+	part_num = new_num;
 	
 	
 	part_name = new_name;
@@ -76,9 +80,10 @@ void Head::setGenValues(string new_name, int new_type, double new_weight, double
 	part_description = new_description;
 
 }
-void Head::print_part() 
+void Head::print_part(int part_index) 
 {
 	cout << left << setw(15) << part_name << "|";
+	cout << left << setw(5) << part_index << "|";
 	cout << right << setw(10) << part_num << "|";
 	cout << left << setw(15) << partTypeCopy[part_type - 1] << "|";
 	cout << right << setw(8) << part_weight << "|";
@@ -87,15 +92,15 @@ void Head::print_part()
 	
 	cout << endl;
 }
-void Head::save_part()
+void Head::save_part(string fileAdd)
 {
 	fstream outFile;
-	outFile.open(parts_directory, ios::app);
+	outFile.open(fileAdd, ios::app);
 
 	//general info
-	outFile << part_name << endl;
-	outFile << part_num << endl;
 	outFile << part_type << endl;
+	outFile << part_name << endl;
+	outFile << part_num << endl;	
 	outFile << part_weight << endl;
 	outFile << part_cost << endl;
 	outFile << part_description << endl;
@@ -107,12 +112,15 @@ void Head::save_part()
 	outFile.close();
 
 }
-
-
-
-void Arm::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
+int Head::get_int_one()
 {
-	part_num = st_part_num;
+	return -1;
+}
+
+
+void Arm::setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description)
+{
+	part_num = new_num;
 	
 	
 	part_name = new_name;
@@ -128,9 +136,10 @@ void Arm::set_arm_power(double new_arm_power)
 {
 	arm_power = new_arm_power;
 }
-void Arm::print_part()
+void Arm::print_part(int part_index)
 {
 	cout << left << setw(15) << part_name << "|";
+	cout << left << setw(5) << part_index << "|";
 	cout << right << setw(10) << part_num << "|";
 	cout << left << setw(15) << partTypeCopy[part_type - 1] << "|";
 	cout << right << setw(8) << part_weight << "|";
@@ -141,15 +150,15 @@ void Arm::print_part()
 	cout << endl;
 	
 }
-void Arm::save_part()
+void Arm::save_part(string fileAdd)
 {
 	fstream outFile;
-	outFile.open(parts_directory, ios::app);
+	outFile.open(fileAdd, ios::app);
 
 	//general info
-	outFile << part_name << endl;
-	outFile << part_num << endl;
 	outFile << part_type << endl;
+	outFile << part_name << endl;
+	outFile << part_num << endl;	
 	outFile << part_weight << endl;
 	outFile << part_cost << endl;
 	outFile << part_description << endl;
@@ -161,12 +170,15 @@ void Arm::save_part()
 	outFile.close();
 
 }
-
-
-
-void Battery::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
+int Arm::get_int_one()
 {
-	part_num = st_part_num;
+	return -1;
+}
+
+
+void Battery::setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description)
+{
+	part_num = new_num;
 	
 	
 	part_name = new_name;	
@@ -183,9 +195,10 @@ void Battery::setBattCap(double new_bat_cap)
 {
 	battery_capacity = new_bat_cap;
 }
-void Battery::print_part()
+void Battery::print_part(int part_index)
 {
 	cout << left << setw(15) << part_name << "|";
+	cout << left << setw(5) << part_index << "|";
 	cout << right << setw(10) << part_num << "|";
 	cout << left << setw(15) << partTypeCopy[part_type - 1] << "|";
 	cout << right << setw(8) << part_weight << "|";
@@ -196,15 +209,15 @@ void Battery::print_part()
 	cout << endl;
 	
 }
-void Battery::save_part()
+void Battery::save_part(string fileAdd)
 {
 	fstream outFile;
-	outFile.open(parts_directory, ios::app);
+	outFile.open(fileAdd, ios::app);
 
 	//general info
-	outFile << part_name << endl;
-	outFile << part_num << endl;
 	outFile << part_type << endl;
+	outFile << part_name << endl;
+	outFile << part_num << endl;	
 	outFile << part_weight << endl;
 	outFile << part_cost << endl;
 	outFile << part_description << endl;
@@ -216,12 +229,16 @@ void Battery::save_part()
 	outFile.close();
 
 }
-
-
-
-void Locomotor::setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description)
+int Battery::get_int_one()
 {
-	part_num = st_part_num;
+	return -1;
+}
+
+
+
+void Locomotor::setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description)
+{
+	part_num = new_num;
 	
 
 	part_name = new_name;
@@ -236,9 +253,10 @@ void Locomotor::set_power_maxspeed(double newMaxSpeed, double newPower)
 	locomotor_maxspeed = newMaxSpeed;
 	locomotor_power = newPower;
 }
-void Locomotor::print_part()
+void Locomotor::print_part(int part_index)
 {
 	cout << left << setw(15) << part_name << "|";
+	cout << left << setw(5) << part_index << "|";
 	cout << right << setw(10) << part_num<< "|";
 	cout << left << setw(15) << partTypeCopy[part_type - 1] << "|";
 	cout << right << setw(8) << part_weight << "|";
@@ -249,15 +267,15 @@ void Locomotor::print_part()
 	cout << endl;
 	
 }
-void Locomotor::save_part()
+void Locomotor::save_part(string fileAdd)
 {
 	fstream outFile;
-	outFile.open(parts_directory, ios::app);
+	outFile.open(fileAdd, ios::app);
 
 	//general info
-	outFile << part_name << endl;
-	outFile << part_num << endl;
 	outFile << part_type << endl;
+	outFile << part_name << endl;
+	outFile << part_num << endl;	
 	outFile << part_weight << endl;
 	outFile << part_cost << endl;
 	outFile << part_description << endl;
@@ -269,4 +287,8 @@ void Locomotor::save_part()
 	outFile << endl;
 	outFile.close();
 
+}
+int Locomotor::get_int_one()
+{
+	return -1;
 }

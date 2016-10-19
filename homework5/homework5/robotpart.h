@@ -19,7 +19,7 @@ const string parts_directory = "partsVector.txt";
 class RobotPart
 {
 public:
-	static int st_part_num;
+	
 	
 	string part_name;
 	int part_num;
@@ -28,9 +28,10 @@ public:
 	double part_cost;
 	string part_description;
 	
-	virtual void setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description) = 0;
-	virtual void print_part() = 0;
-	virtual void save_part() = 0;
+	virtual void setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description) = 0;
+	virtual void print_part(int part_index) = 0;
+	virtual void save_part(string fileAdd) = 0;
+	virtual int get_int_one() = 0;
 
 };
 
@@ -40,11 +41,11 @@ class Torso : public RobotPart
 {
 public:
 	int battery_comparts;
-	virtual void setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description);
+	void setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description) override;
 	void setCompart(int newComparts);
-	virtual void print_part();
-	virtual void save_part();
-	
+	void print_part(int part_index) override;
+	void save_part(string fileAdd) override;
+	int get_int_one() override;
 	
 	
 };
@@ -53,11 +54,14 @@ class Head : public RobotPart
 {
 public:
 	
-	virtual void print_part();
-	virtual void save_part();
+	void print_part(int part_index) override;
+	void save_part(string fileAdd) override;
 
+	//Could have used a constructor 
+	void setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description) override;
 
-	virtual void setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description);
+	//This function will not be used for this class objects, even though it can be but it wont make any sense
+	int get_int_one() override;
 };
 
 
@@ -66,11 +70,14 @@ class Arm : public RobotPart
 public:
 	double arm_power;
 
-	virtual void print_part();
-	virtual void save_part();
+	void print_part(int part_index) override;
+	void save_part(string fileAdd) override;
 
 	void set_arm_power(double new_arm_power);
-	virtual void setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description);
+	void setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description) override;
+
+	//This function will not be used for this class objects, even though it can be but it wont make any sense
+	int get_int_one() override;
 };
 
 class Battery : public RobotPart
@@ -78,11 +85,14 @@ class Battery : public RobotPart
 public:
 	double battery_capacity;
 
-	virtual void print_part();
-	virtual void save_part();
+	void print_part(int part_index) override;
+	void save_part(string fileAdd) override;
 
 	void setBattCap(double new_bat_cap);
-	virtual void setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description);
+	void setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description) override;
+
+	//This function will not be used for this class objects, even though it can be but it wont make any sense
+	int get_int_one() override;
 };
 
 class Locomotor : public RobotPart
@@ -92,11 +102,14 @@ public:
 	double locomotor_power;
 
 	
-	virtual void print_part();
-	virtual void save_part();
+	void print_part(int part_index) override;
+	void save_part(string fileAdd) override;
 
 	void set_power_maxspeed(double newMaxSpeed, double newPower);
-	virtual void setGenValues(string new_name, int new_type, double new_weight, double new_cost, string new_description);
+	void setGenValues(string new_name, int new_num, int new_type, double new_weight, double new_cost, string new_description) override;
+
+	//This function will not be used for this class objects, even though it can be but it wont make any sense
+	int get_int_one() override;
 };
 
 #endif // !ROBOTPART_H_
