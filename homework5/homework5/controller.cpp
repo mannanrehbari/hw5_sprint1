@@ -1,10 +1,14 @@
 #include "controller.h"
 #include "robotpart.h"
 #include "RobotModels.h"
+#include "Order.h"
+
 
 vector<RobotPart*> myParts;
-
 vector<RobotModels> myModels;
+vector<Order> myOrders;
+
+
 
 
 void control()
@@ -76,6 +80,8 @@ void create()
 
 
 }
+
+//THis function displays the reports(vectors, orders etc)
 void report()
 {
 	int selection;
@@ -102,6 +108,7 @@ void report()
 
 }
 
+//These print Part and Model vectors respectively
 void print_part_vector()
 {
 	cout << "\n\nPrinting Vector of Objects\n";
@@ -136,9 +143,11 @@ void list_model_vector()
 	cout << "\n---------------------------\n";
 	cout << "|   Available Models   |";
 	cout << "\n---------------------------\n";
-	cout << "Choose a model to display parts:\n";
+	cout << "Choose model to display parts (enter ID)\n";
 
+	cout << "\n--------------------------------------------\n";
 	printf("%-15s|%-5s|%-10s|%-10s|\n", " Name", " ID"," Number", " Price");
+	cout << "--------------------------------------------\n";
 	for (unsigned int j = 0; j < myModels.size(); j++)
 	{
 		myModels[j].print_each_model(j);
@@ -150,8 +159,14 @@ void list_model_vector()
 		return;
 	}
 
-	cout << "Selection:";
+	cout << "\nSelection (ID):";
 	selection = integer_validation(); // it returns a valid int
+
+	if (selection >= myModels.size() || selection <0) 
+	{
+		cout << "Wrong Input! ID out of range\n";
+		return;
+	}
 
 	// The next lines will print the vector of constituent parts 
 	cout << "\nPrinting parts in model no: " << selection << endl;
@@ -168,6 +183,7 @@ void list_model_vector()
 
 }
 
+//THese help printing repeatedly used functions
 void print_main()
 {
 	cout << "----------\n|  Main  |\n----------\n";
@@ -185,7 +201,6 @@ void print_create()
 	cout << "4: Previous Menu\n";
 
 }
-
 
 //This next function creates new parts
 void create_part()
@@ -454,6 +469,7 @@ void create_model()
 
 
 	outFile << "END_OF_MODEL" << endl;
+	cout << "Model added to vector!\n";
 	myModels.push_back(newModel);
 	outFile.close();
 
@@ -482,6 +498,7 @@ double double_validation()
 
 }
 
+//THis function prints actual parts (not part types)
 int list_type_parts(int type)
 {
 	cout << "=======================================================================================================\n";
@@ -503,18 +520,22 @@ int list_type_parts(int type)
 
 }
 
+
+//These functions will create an order
 void order_helper()
 {
+	
+
 	double profit_percent;
 	double model_saleprice;
 	int num_robots;
 	double order_cost;
-
-
+	
 	int selection;
 	cout << "Choose a model for order:\n";
 
 	printf("%-15s|%-5s|%-10s|%-10s|\n", " Name", " ID", " Number", " Price");
+	cout << "---------------------------------------\n";
 	for (unsigned int j = 0; j < myModels.size(); j++)
 	{
 		myModels[j].print_each_model(j);
@@ -529,9 +550,15 @@ void order_helper()
 	cout << "Selection:";
 	selection = integer_validation(); // it returns a valid int
 
+	if (selection >= myModels.size() || selection <0) 
+	{
+		cout << "Invalid Input!\n";
+		return;
+	}
+
 
 	cout << "Profit percent on the model : ";
-	cin >> profit_percent;
+	profit_percent = double_validation();
 	cin.ignore();
 
 	model_saleprice = (myModels[selection].robot_price *(profit_percent / 100.0)) + myModels[selection].robot_price;
@@ -549,10 +576,13 @@ void order_helper()
 
 	cout << "Total Robot price per robot: " << model_saleprice << endl;
 	cout << "Enter the quantity of robots: ";
-	cin >> num_robots;
+	num_robots = integer_validation();
 
 	order_cost = num_robots * model_saleprice;
 	cout << "Your total cost of order is: " << order_cost << endl;
+
+
+	
 	cout << "Thank you for your order!\n";
 
 
@@ -587,6 +617,8 @@ int integer_validation()
 	return num;
 
 }
+
+//This function prints part types
 void print_part_type()
 {
 	int i;
@@ -600,6 +632,9 @@ void print_part_type()
 	cout << "6: Previous menu\nSelection: ";
 };
 
+
+
+//These two read the data from text files into respective vectors
 void read_partvector()
 {
 	//This declaration order is reflecting how each item is stored and read from file
@@ -757,7 +792,7 @@ void read_modelvector()
 	double new_armpower;
 
 	int new_batt_comparts;
-	int model_count = 0;
+	
 
 	//opening file for reading
 	ifstream readModel;
@@ -865,12 +900,12 @@ void read_modelvector()
 		
 		myModels.push_back(newModel);
 
-		model_count++;
+		
 
 
 	}
 
-	cout << "Model count: " << model_count << endl;
+	
 
 	
 	readModel.close();

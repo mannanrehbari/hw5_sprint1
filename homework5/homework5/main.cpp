@@ -1,7 +1,8 @@
 #include <iostream>
 #include "controller.h"
 #include "robotpart.h"
-
+#include "RobotModels.h"
+#include "Order.h"
 
 
 int main()

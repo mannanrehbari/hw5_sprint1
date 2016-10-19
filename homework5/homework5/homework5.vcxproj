@@ -146,12 +146,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Order.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RobotModels.cpp" />
     <ClCompile Include="robotpart.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Order.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="RobotModels.h" />
     <ClInclude Include="robotpart.h" />
