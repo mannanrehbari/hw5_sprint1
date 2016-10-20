@@ -8,8 +8,7 @@ vector<RobotPart*> myParts;
 vector<RobotModels> myModels;
 vector<Order> myOrders;
 
-
-
+vector<string> associate_list;
 
 void control()
 {
@@ -19,9 +18,16 @@ void control()
 
 
 	cout << "***** Welcome to Robbie Robot Shop *****\n\n";
+	
+	
 	//reading existing data from files
 	read_partvector();
 	read_modelvector();
+	read_ordervector();
+
+	//associates ready
+	associate_list.push_back("Haram Bey");
+	associate_list.push_back("Wass Ennocent");
 	
 
 
@@ -85,10 +91,10 @@ void create()
 void report()
 {
 	int selection;
-	cout << "\n---------------------------\n|Record of Parts and Models|\n---------------------------\n1: Print Parts\n2: Print Models\n3: Main\nSelection: ";
+	cout << "\n---------------------------\n|Record of Parts, Models and Orders|\n---------------------------\n1: Print Parts\n2: Print Models\n3: Print Orders\n4: Main\nSelection: ";
 	cin >> selection;
 
-	while (selection != 3)
+	while (selection != 4)
 	{
 		if (selection == 1)
 		{
@@ -98,8 +104,12 @@ void report()
 		{
 			list_model_vector();
 		}
+		else if (selection == 3) 
+		{
+			print_orders();
+		}
 
-		cout << "\n---------------------------\n|Record of Parts and Models|\n---------------------------\n1: Print Parts\n2: Print Models\n3: Main\nSelection: ";
+		cout << "\n---------------------------\n|Record of Parts, Models and Orders|\n---------------------------\n1: Print Parts\n2: Print Models\n3: Print Orders\n4: Main\nSelection: ";
 		cin >> selection;
 
 	}
@@ -111,12 +121,11 @@ void report()
 //These print Part and Model vectors respectively
 void print_part_vector()
 {
-	cout << "\n\nPrinting Vector of Objects\n";
-	cout << "\n=======================================================================================================\n";
+	cout << "\n\nPrinting Parts\n";
+	cout << "\n-------------------------------------------------------------------------------------------------------\n";
 
-
-	printf("%-15s|%-5s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname"," ID" ,  "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
-	cout << "=======================================================================================================\n";
+	printf("%-15s|%-5s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", " ID", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
+	cout << "\n-------------------------------------------------------------------------------------------------------\n";
 	if (myParts.size() == 0)
 	{
 		cout << "\n No parts stored yet! \n\n";
@@ -173,7 +182,7 @@ void list_model_vector()
 	cout << "=======================================================================================================\n";
 
 
-	printf("%-15s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
+	printf("%-15s|%-5s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", " ID", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
 	cout << "=======================================================================================================\n";
 
 	myModels[selection].print_model_vector();
@@ -182,13 +191,89 @@ void list_model_vector()
 
 
 }
+void print_orders() 
+{
+	cout << "\n-----------------\n";
+	cout << "Choose associate:\n";
+	cout << "\n-----------------\n";
+	for (unsigned int p = 0; p < associate_list.size(); p++)
+	{
+		cout << p << ": " << associate_list[p] << endl;
+	}
+
+	cout << "\nSelection: ";
+	int select_SA = integer_validation();
+	if (select_SA >= associate_list.size() || select_SA <0)
+	{
+		cout << "Invalid Input!\n";
+		return;
+	}
+
+
+
+	cout << "\n\nOrder details in table\n";
+	cout << "----------------------------------------------------------------------------------\n";
+	printf("%-15s|%-12s|%-12s|%-12s|%-12s|%-12s|\n", "Associate", "Model_ID","Order #", "#ofBots", "Sale_$", "total_cost");
+
+	cout << "----------------------------------------------------------------------------------\n";
+
+	
+	
+
+
+	if (myOrders.size() == 0) 
+	{
+		cout << "No orders yet!" << endl;
+		return;
+	}
+
+	for (unsigned int k = 0; k < myOrders.size(); k++) 
+	{
+		if (myOrders[k].getAssociate() == associate_list[select_SA]) 
+		{
+			myOrders[k].printorderdetails();
+		}
+		
+	}
+	cout << "\nEnter the model id for details about model and parts\n";
+	int  for_details = integer_validation();
+	if (for_details >= myModels.size() || for_details <0)
+	{
+		cout << "Invalid input!\n";
+		return;
+	}
+	/*
+	cout << left << setw(15) << robot_name << "|";
+	cout << left << setw(5) << id << "|";
+	cout << left << setw(10) << robot_number << "|";
+	cout << left << setw(10) << robot_price << "|"<< endl;
+	
+	*/
+	cout << "-------------------------------------\n";
+	printf("%-14s|%-5s|%-10s|%-10s|\n", "Bot Name", "ID" , "Bot_No", "Bot_Price");
+	cout << "-------------------------------------\n";
+	myModels[for_details].print_each_model(for_details);
+
+	cout << "\n\nPrinting Bot Components\n";
+	
+	cout << "\n-------------------------------------------------------------------------------------------------------\n";
+
+	printf("%-15s|%-5s|%10s|%-15s|%8s|%8s|%-20s|%-20s|\n", "Partname", " ID", "Partnum", "PartType", "Weight", "Cost", "Description", "Other Details");
+	cout << "\n-------------------------------------------------------------------------------------------------------\n";
+	for (unsigned int p = 0; p < myModels[for_details].parts_in_robot.size(); p++) 
+	{
+		myModels[for_details].parts_in_robot[p]->print_part(p);
+	}
+
+}
+
 
 //THese help printing repeatedly used functions
 void print_main()
 {
 	cout << "----------\n|  Main  |\n----------\n";
-	cout << "1: Create parts or model\n";
-	cout << "2: Display report \n";
+	cout << "1: Create Parts, Models and Orders\n";
+	cout << "2: Display inventory/ SA reports \n";
 	cout << "3: Quit\n";
 
 }
@@ -525,15 +610,34 @@ int list_type_parts(int type)
 void order_helper()
 {
 	
+	string associate;
+	int order_num = myOrders.size();
 
+	
+	// limited the number of associates to two
+	cout << "Choose associate:\n";
+	for (unsigned int p = 0; p < associate_list.size(); p++) 
+	{
+		cout << p  << ": " << associate_list[p] <<endl;
+	}
+	cout << "Selection: ";
+	int select_SA = integer_validation();
+	if (select_SA >= associate_list.size() || select_SA <0)
+	{
+		cout << "Invalid Input!\n";
+		return;
+	}
+
+	associate = associate_list[select_SA];
 	double profit_percent;
 	double model_saleprice;
 	int num_robots;
 	double order_cost;
 	
 	int selection;
-	cout << "Choose a model for order:\n";
+	cout << "\nChoose a model for order: (enter ID)\n";
 
+	cout << "---------------------------------------\n";
 	printf("%-15s|%-5s|%-10s|%-10s|\n", " Name", " ID", " Number", " Price");
 	cout << "---------------------------------------\n";
 	for (unsigned int j = 0; j < myModels.size(); j++)
@@ -546,7 +650,7 @@ void order_helper()
 		cout << "\n\n\tNo models available!\n\n";
 		return;
 	}
-
+	cout << "---------------------------------------\n";
 	cout << "Selection:";
 	selection = integer_validation(); // it returns a valid int
 
@@ -581,9 +685,12 @@ void order_helper()
 	order_cost = num_robots * model_saleprice;
 	cout << "Your total cost of order is: " << order_cost << endl;
 
+	Order newOrder(associate, order_num,profit_percent, model_saleprice, num_robots, order_cost, selection);
+	myOrders.push_back(newOrder);
+	newOrder.saveOrder();
 
 	
-	cout << "Thank you for your order!\n";
+	cout << "Order Successfully created!\n";
 
 
 
@@ -913,7 +1020,65 @@ void read_modelvector()
 
 
 }
+void read_ordervector() 
+{
 
+	ifstream orderFile;
+	orderFile.open("orderVector.txt", ios::app);
+	string order_associate;
+
+
+	double order_profit_percent;
+	double order_model_saleprice;
+	int order_num_robots;
+	double order_total_cost;
+	int order_number;
+	int order_model_id;
+	/*
+	orderFile << order_associate << endl;
+	orderFile << order_number << endl;
+	orderFile << order_profit_percent << endl;
+	orderFile << order_model_saleprice << endl;
+	orderFile << order_num_robots << endl;
+	orderFile << order_total_cost<< endl;
+	orderFile << order_model_id << endl;
+	*/
+	string eachLine;
+	while (getline(orderFile, eachLine)) 
+	{
+		while (eachLine != "") 
+		{
+			order_associate = eachLine;
+
+			getline(orderFile, eachLine);
+			order_number = atoi(eachLine.c_str());
+			
+			getline(orderFile, eachLine);
+			order_profit_percent = atof(eachLine.c_str());
+
+			getline(orderFile, eachLine);
+			order_model_saleprice = atof(eachLine.c_str());
+
+			getline(orderFile, eachLine);
+			order_num_robots = atoi(eachLine.c_str());
+
+			getline(orderFile, eachLine);
+			order_total_cost = atof(eachLine.c_str());
+
+			getline(orderFile, eachLine);
+			order_model_id= atoi(eachLine.c_str());
+
+			getline(orderFile, eachLine);
+		}
+		Order read_order(order_associate, order_number, order_profit_percent, order_model_saleprice, order_num_robots, order_total_cost, order_model_id);
+		myOrders.push_back(read_order);
+
+	}
+
+	orderFile.close();
+
+
+}
 
 	
 

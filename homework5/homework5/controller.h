@@ -34,7 +34,7 @@ void print_create();
 void print_part_type();
 void print_part_vector();
 void list_model_vector();
-
+void print_orders();
 //to ensure integer input is valid 
 // not thoroughly implemented
 int integer_validation();
@@ -44,6 +44,7 @@ int integer_validation();
 
 void read_partvector();
 void read_modelvector();
+void read_ordervector();
 
 #endif // !1
 

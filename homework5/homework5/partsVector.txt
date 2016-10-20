@@ -70,3 +70,43 @@ Locomotor new
 15
 12.9
 
+1
+lastTorso
+99
+99
+99
+TheLastTor
+2
+
+2
+lastHead
+88
+88
+88
+the last head
+
+3
+lastArm
+77
+77
+77
+the last Arm
+77
+
+4
+lastBattery
+66
+66
+66
+theLastBatt
+66
+
+5
+lastLoco
+55
+55
+55
+the last loc
+55
+5
+
